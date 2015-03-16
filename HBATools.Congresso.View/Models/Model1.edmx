@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="hbatecnologia60Model.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="hbatecnologia60ModelStoreContainer">
+          <EntitySet Name="pessoa" EntityType="hbatecnologia60Model.Store.pessoa" store:Type="Tables" Schema="hbatecnologia60" />
+          <EntitySet Name="pessoa_fisica" EntityType="hbatecnologia60Model.Store.pessoa_fisica" store:Type="Tables" Schema="hbatecnologia60" />
+          <EntitySet Name="pessoa_juridica" EntityType="hbatecnologia60Model.Store.pessoa_juridica" store:Type="Tables" Schema="hbatecnologia60" />
+          <EntitySet Name="segmento" EntityType="hbatecnologia60Model.Store.segmento" store:Type="Tables" Schema="hbatecnologia60" />
+          <AssociationSet Name="FK_PF_Pessoa" Association="hbatecnologia60Model.Store.FK_PF_Pessoa">
+            <End Role="pessoa" EntitySet="pessoa" />
+            <End Role="pessoa_fisica" EntitySet="pessoa_fisica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PF_PJ" Association="hbatecnologia60Model.Store.FK_PF_PJ">
+            <End Role="pessoa_juridica" EntitySet="pessoa_juridica" />
+            <End Role="pessoa_fisica" EntitySet="pessoa_fisica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PJ_Pessoa" Association="hbatecnologia60Model.Store.FK_PJ_Pessoa">
+            <End Role="pessoa" EntitySet="pessoa" />
+            <End Role="pessoa_juridica" EntitySet="pessoa_juridica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PJ_Segmento" Association="hbatecnologia60Model.Store.FK_PJ_Segmento">
+            <End Role="segmento" EntitySet="segmento" />
+            <End Role="pessoa_juridica" EntitySet="pessoa_juridica" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="pessoa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="end_rua" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="end_numero" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="end_complemento" Type="varchar" MaxLength="50" />
+          <Property Name="end_bairro" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="end_cidade" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="end_estado" Type="char" MaxLength="2" />
+          <Property Name="end_cep" Type="char" MaxLength="9" />
+          <Property Name="id_pais" Type="uint" Nullable="false" />
+          <Property Name="end_zipcode" Type="varchar" MaxLength="50" />
+          <Property Name="telefone" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="facebook" Type="varchar" MaxLength="150" />
+          <Property Name="twitter" Type="varchar" MaxLength="100" />
+          <Property Name="nome_cracha" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="observacao" Type="varchar" MaxLength="150" />
+          <Property Name="datahora_cadastro" Type="datetime" />
+          <Property Name="datahora_alteracao" Type="datetime" />
+        </EntityType>
+        <EntityType Name="pessoa_fisica">
+          <Key>
+            <PropertyRef Name="id_pessoa" />
+          </Key>
+          <Property Name="id_pessoa" Type="uint" Nullable="false" />
+          <Property Name="id_pessoa_juridica" Type="uint" Nullable="false" />
+          <Property Name="cpf" Type="char" MaxLength="14" />
+          <Property Name="passaporte" Type="varchar" MaxLength="50" />
+          <Property Name="registro_conselho" Type="varchar" MaxLength="50" />
+          <Property Name="rg" Type="varchar" MaxLength="20" />
+          <Property Name="tratamento" Type="varchar" MaxLength="50" />
+          <Property Name="nome_completo" Type="varchar" Nullable="false" MaxLength="300" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="data_nascimento" Type="date" Nullable="false" />
+          <Property Name="foto" Type="varchar" MaxLength="20" />
+          <Property Name="biometria" Type="longtext" />
+          <Property Name="sexo" Type="enum" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pessoa_juridica">
+          <Key>
+            <PropertyRef Name="id_pessoa" />
+          </Key>
+          <Property Name="id_pessoa" Type="uint" Nullable="false" />
+          <Property Name="id_segmento" Type="uint" Nullable="false" />
+          <Property Name="cnpj" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="insc_estadual" Type="varchar" MaxLength="45" />
+          <Property Name="insc_municipal" Type="varchar" MaxLength="45" />
+          <Property Name="codigo_produtor_rural" Type="varchar" MaxLength="45" />
+          <Property Name="doc_empresa_estrangeira" Type="varchar" MaxLength="45" />
+          <Property Name="nome_fantasia" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="site" Type="varchar" MaxLength="200" />
+          <Property Name="data_abertura" Type="date" />
+        </EntityType>
+        <EntityType Name="segmento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_PF_Pessoa">
+          <End Role="pessoa" Type="hbatecnologia60Model.Store.pessoa" Multiplicity="1" />
+          <End Role="pessoa_fisica" Type="hbatecnologia60Model.Store.pessoa_fisica" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="pessoa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pessoa_fisica">
+              <PropertyRef Name="id_pessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PF_PJ">
+          <End Role="pessoa_juridica" Type="hbatecnologia60Model.Store.pessoa_juridica" Multiplicity="1" />
+          <End Role="pessoa_fisica" Type="hbatecnologia60Model.Store.pessoa_fisica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pessoa_juridica">
+              <PropertyRef Name="id_pessoa" />
+            </Principal>
+            <Dependent Role="pessoa_fisica">
+              <PropertyRef Name="id_pessoa_juridica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PJ_Pessoa">
+          <End Role="pessoa" Type="hbatecnologia60Model.Store.pessoa" Multiplicity="1" />
+          <End Role="pessoa_juridica" Type="hbatecnologia60Model.Store.pessoa_juridica" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="pessoa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pessoa_juridica">
+              <PropertyRef Name="id_pessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PJ_Segmento">
+          <End Role="segmento" Type="hbatecnologia60Model.Store.segmento" Multiplicity="1" />
+          <End Role="pessoa_juridica" Type="hbatecnologia60Model.Store.pessoa_juridica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="segmento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pessoa_juridica">
+              <PropertyRef Name="id_segmento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hbatecnologia60Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="pessoa" EntityType="hbatecnologia60Model.pessoa" />
+          <EntitySet Name="segmento" EntityType="hbatecnologia60Model.segmento" />
+          <AssociationSet Name="FK_PF_PJ" Association="hbatecnologia60Model.FK_PF_PJ">
+            <End Role="pessoa_juridica" EntitySet="pessoa" />
+            <End Role="pessoa_fisica" EntitySet="pessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PJ_Segmento" Association="hbatecnologia60Model.FK_PJ_Segmento">
+            <End Role="segmento" EntitySet="segmento" />
+            <End Role="pessoa_juridica" EntitySet="pessoa" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="pessoa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="end_rua" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="end_numero" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="end_complemento" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="end_bairro" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="end_cidade" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="end_estado" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="end_cep" Type="String" MaxLength="9" Unicode="false" FixedLength="false" />
+          <Property Name="id_pais" Type="Int64" Nullable="false" />
+          <Property Name="end_zipcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="telefone" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="facebook" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="twitter" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="nome_cracha" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="observacao" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="datahora_cadastro" Type="DateTime" />
+          <Property Name="datahora_alteracao" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="pessoa_fisica" BaseType="hbatecnologia60Model.pessoa">
+          <Property Name="id_pessoa_juridica" Type="Int64" Nullable="false" />
+          <Property Name="cpf" Type="String" MaxLength="14" Unicode="false" FixedLength="false" />
+          <Property Name="passaporte" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="registro_conselho" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="rg" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="tratamento" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="nome_completo" Type="String" Nullable="false" MaxLength="300" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="data_nascimento" Type="DateTime" Nullable="false" />
+          <Property Name="foto" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="biometria" Type="String" MaxLength="1073741823" Unicode="false" FixedLength="false" />
+          <Property Name="sexo" Type="String" Nullable="false" MaxLength="65532" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="pessoa_juridica" Relationship="hbatecnologia60Model.FK_PF_PJ" FromRole="pessoa_fisica" ToRole="pessoa_juridica" />
+        </EntityType>
+        <EntityType Name="pessoa_juridica" BaseType="hbatecnologia60Model.pessoa">
+          <Property Name="id_segmento" Type="Int64" Nullable="false" />
+          <Property Name="cnpj" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="insc_estadual" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="insc_municipal" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="codigo_produtor_rural" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="doc_empresa_estrangeira" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="nome_fantasia" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="site" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="data_abertura" Type="DateTime" />
+          <NavigationProperty Name="pessoa_fisica" Relationship="hbatecnologia60Model.FK_PF_PJ" FromRole="pessoa_juridica" ToRole="pessoa_fisica" />
+          <NavigationProperty Name="segmento" Relationship="hbatecnologia60Model.FK_PJ_Segmento" FromRole="pessoa_juridica" ToRole="segmento" />
+        </EntityType>
+        <EntityType Name="segmento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="pessoa_juridica" Relationship="hbatecnologia60Model.FK_PJ_Segmento" FromRole="segmento" ToRole="pessoa_juridica" />
+        </EntityType>
+        <Association Name="FK_PF_PJ">
+          <End Role="pessoa_juridica" Type="hbatecnologia60Model.pessoa_juridica" Multiplicity="1" />
+          <End Role="pessoa_fisica" Type="hbatecnologia60Model.pessoa_fisica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pessoa_juridica">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pessoa_fisica">
+              <PropertyRef Name="id_pessoa_juridica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PJ_Segmento">
+          <End Role="segmento" Type="hbatecnologia60Model.segmento" Multiplicity="1" />
+          <End Role="pessoa_juridica" Type="hbatecnologia60Model.pessoa_juridica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="segmento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pessoa_juridica">
+              <PropertyRef Name="id_segmento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="hbatecnologia60ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="pessoa">
+            <EntityTypeMapping TypeName="IsTypeOf(hbatecnologia60Model.pessoa)">
+              <MappingFragment StoreEntitySet="pessoa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="datahora_alteracao" ColumnName="datahora_alteracao" />
+                <ScalarProperty Name="datahora_cadastro" ColumnName="datahora_cadastro" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="nome_cracha" ColumnName="nome_cracha" />
+                <ScalarProperty Name="twitter" ColumnName="twitter" />
+                <ScalarProperty Name="facebook" ColumnName="facebook" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="end_zipcode" ColumnName="end_zipcode" />
+                <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+                <ScalarProperty Name="end_cep" ColumnName="end_cep" />
+                <ScalarProperty Name="end_estado" ColumnName="end_estado" />
+                <ScalarProperty Name="end_cidade" ColumnName="end_cidade" />
+                <ScalarProperty Name="end_bairro" ColumnName="end_bairro" />
+                <ScalarProperty Name="end_complemento" ColumnName="end_complemento" />
+                <ScalarProperty Name="end_numero" ColumnName="end_numero" />
+                <ScalarProperty Name="end_rua" ColumnName="end_rua" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(hbatecnologia60Model.pessoa_juridica)">
+              <MappingFragment StoreEntitySet="pessoa_juridica">
+                <ScalarProperty Name="id" ColumnName="id_pessoa" />
+                <ScalarProperty Name="data_abertura" ColumnName="data_abertura" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="nome_fantasia" ColumnName="nome_fantasia" />
+                <ScalarProperty Name="doc_empresa_estrangeira" ColumnName="doc_empresa_estrangeira" />
+                <ScalarProperty Name="codigo_produtor_rural" ColumnName="codigo_produtor_rural" />
+                <ScalarProperty Name="insc_municipal" ColumnName="insc_municipal" />
+                <ScalarProperty Name="insc_estadual" ColumnName="insc_estadual" />
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="id_segmento" ColumnName="id_segmento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(hbatecnologia60Model.pessoa_fisica)">
+              <MappingFragment StoreEntitySet="pessoa_fisica">
+                <ScalarProperty Name="id" ColumnName="id_pessoa" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="biometria" ColumnName="biometria" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nome_completo" ColumnName="nome_completo" />
+                <ScalarProperty Name="tratamento" ColumnName="tratamento" />
+                <ScalarProperty Name="rg" ColumnName="rg" />
+                <ScalarProperty Name="registro_conselho" ColumnName="registro_conselho" />
+                <ScalarProperty Name="passaporte" ColumnName="passaporte" />
+                <ScalarProperty Name="cpf" ColumnName="cpf" />
+                <ScalarProperty Name="id_pessoa_juridica" ColumnName="id_pessoa_juridica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="segmento">
+            <EntityTypeMapping TypeName="hbatecnologia60Model.segmento">
+              <MappingFragment StoreEntitySet="segmento">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1" ZoomLevel="101">
+        <EntityTypeShape EntityType="hbatecnologia60Model.pessoa" Width="1.5" PointX="0.75" PointY="3.125" Height="4.8648079427083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="hbatecnologia60Model.pessoa_fisica" Width="1.5" PointX="3" PointY="3.625" Height="3.5186979166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="hbatecnologia60Model.pessoa_juridica" Width="1.5" PointX="6" PointY="3.75" Height="3.1340950520833326" IsExpanded="true" />
+        <EntityTypeShape EntityType="hbatecnologia60Model.segmento" Width="1.5" PointX="3.75" PointY="0.75" Height="1.5956835937499996" IsExpanded="true" />
+        <AssociationConnector Association="hbatecnologia60Model.FK_PF_PJ" ManuallyRouted="false">
+          <ConnectorPoint PointX="6" PointY="5.3170475260416659" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="5.317047526041665" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="5.3170475260416659" />
+          <ConnectorPoint PointX="4.5" PointY="5.3170475260416659" />
+        </AssociationConnector>
+        <AssociationConnector Association="hbatecnologia60Model.FK_PJ_Segmento" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="1.5478417968749998" />
+          <ConnectorPoint PointX="6.75" PointY="1.5478417968749998" />
+          <ConnectorPoint PointX="6.75" PointY="3.75" />
+        </AssociationConnector>
+        <InheritanceConnector EntityType="hbatecnologia60Model.pessoa_juridica">
+          <ConnectorPoint PointX="1.5" PointY="3.125" />
+          <ConnectorPoint PointX="1.5" PointY="2.75" />
+          <ConnectorPoint PointX="5.625" PointY="2.75" />
+          <ConnectorPoint PointX="5.625" PointY="7.2590950520833317" />
+          <ConnectorPoint PointX="6.75" PointY="7.2590950520833317" />
+          <ConnectorPoint PointX="6.75" PointY="6.8840950520833326" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="hbatecnologia60Model.pessoa_fisica">
+          <ConnectorPoint PointX="2.25" PointY="5.3843489583333328" />
+          <ConnectorPoint PointX="3" PointY="5.3843489583333328" />
+        </InheritanceConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="hbatecnologia60ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="pessoa">
+      <EntityTypeMapping TypeName="IsTypeOf(hbatecnologia60Model.pessoa)">
+        <MappingFragment StoreEntitySet="pessoa">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="datahora_alteracao" ColumnName="datahora_alteracao" />
+          <ScalarProperty Name="datahora_cadastro" ColumnName="datahora_cadastro" />
+          <ScalarProperty Name="observacao" ColumnName="observacao" />
+          <ScalarProperty Name="nome_cracha" ColumnName="nome_cracha" />
+          <ScalarProperty Name="twitter" ColumnName="twitter" />
+          <ScalarProperty Name="facebook" ColumnName="facebook" />
+          <ScalarProperty Name="telefone" ColumnName="telefone" />
+          <ScalarProperty Name="end_zipcode" ColumnName="end_zipcode" />
+          <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+          <ScalarProperty Name="end_cep" ColumnName="end_cep" />
+          <ScalarProperty Name="end_estado" ColumnName="end_estado" />
+          <ScalarProperty Name="end_cidade" ColumnName="end_cidade" />
+          <ScalarProperty Name="end_bairro" ColumnName="end_bairro" />
+          <ScalarProperty Name="end_complemento" ColumnName="end_complemento" />
+          <ScalarProperty Name="end_numero" ColumnName="end_numero" />
+          <ScalarProperty Name="end_rua" ColumnName="end_rua" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(hbatecnologia60Model.pessoa_juridica)">
+        <MappingFragment StoreEntitySet="pessoa_juridica">
+          <ScalarProperty Name="id" ColumnName="id_pessoa" />
+          <ScalarProperty Name="data_abertura" ColumnName="data_abertura" />
+          <ScalarProperty Name="site" ColumnName="site" />
+          <ScalarProperty Name="nome_fantasia" ColumnName="nome_fantasia" />
+          <ScalarProperty Name="doc_empresa_estrangeira" ColumnName="doc_empresa_estrangeira" />
+          <ScalarProperty Name="codigo_produtor_rural" ColumnName="codigo_produtor_rural" />
+          <ScalarProperty Name="insc_municipal" ColumnName="insc_municipal" />
+          <ScalarProperty Name="insc_estadual" ColumnName="insc_estadual" />
+          <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+          <ScalarProperty Name="id_segmento" ColumnName="id_segmento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(hbatecnologia60Model.pessoa_fisica)">
+        <MappingFragment StoreEntitySet="pessoa_fisica">
+          <ScalarProperty Name="id" ColumnName="id_pessoa" />
+          <ScalarProperty Name="sexo" ColumnName="sexo" />
+          <ScalarProperty Name="biometria" ColumnName="biometria" />
+          <ScalarProperty Name="foto" ColumnName="foto" />
+          <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="nome_completo" ColumnName="nome_completo" />
+          <ScalarProperty Name="tratamento" ColumnName="tratamento" />
+          <ScalarProperty Name="rg" ColumnName="rg" />
+          <ScalarProperty Name="registro_conselho" ColumnName="registro_conselho" />
+          <ScalarProperty Name="passaporte" ColumnName="passaporte" />
+          <ScalarProperty Name="cpf" ColumnName="cpf" />
+          <ScalarProperty Name="id_pessoa_juridica" ColumnName="id_pessoa_juridica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="segmento">
+      <EntityTypeMapping TypeName="hbatecnologia60Model.segmento">
+        <MappingFragment StoreEntitySet="segmento">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

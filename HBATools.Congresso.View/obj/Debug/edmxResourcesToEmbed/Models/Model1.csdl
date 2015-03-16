@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="hbatecnologia60Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="pessoa" EntityType="hbatecnologia60Model.pessoa" />
+    <EntitySet Name="segmento" EntityType="hbatecnologia60Model.segmento" />
+    <AssociationSet Name="fk_idx_pessoa_juridica" Association="hbatecnologia60Model.fk_idx_pessoa_juridica">
+      <End Role="pessoa_juridica" EntitySet="pessoa" />
+      <End Role="pessoa_fisica" EntitySet="pessoa" />
+    </AssociationSet>
+    <AssociationSet Name="fk_id_segmento" Association="hbatecnologia60Model.fk_id_segmento">
+      <End Role="segmento" EntitySet="segmento" />
+      <End Role="pessoa_juridica" EntitySet="pessoa" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="pessoa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="end_rua" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="end_numero" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="end_complemento" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="end_bairro" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="end_cidade" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="end_estado" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+    <Property Name="end_cep" Type="String" MaxLength="9" Unicode="false" FixedLength="false" />
+    <Property Name="id_pais" Type="Int64" Nullable="false" />
+    <Property Name="end_zipcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="telefone" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="facebook" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+    <Property Name="twitter" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="nome_cracha" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="observacao" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+    <Property Name="datahora_cadastro" Type="DateTime" />
+    <Property Name="datahora_alteracao" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="pessoa_fisica" BaseType="hbatecnologia60Model.pessoa">
+    <Property Name="id_pessoa_juridica" Type="Int64" />
+    <Property Name="cpf" Type="String" MaxLength="14" Unicode="false" FixedLength="false" />
+    <Property Name="passaporte" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="registro_conselho" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="rg" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="tratamento" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="nome_completo" Type="String" Nullable="false" MaxLength="300" Unicode="false" FixedLength="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+    <Property Name="data_nascimento" Type="DateTime" Nullable="false" />
+    <Property Name="foto" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="biometria" Type="String" MaxLength="1073741823" Unicode="false" FixedLength="false" />
+    <Property Name="sexo" Type="String" Nullable="false" MaxLength="65532" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="pessoa_juridica" Relationship="hbatecnologia60Model.fk_idx_pessoa_juridica" FromRole="pessoa_fisica" ToRole="pessoa_juridica" />
+  </EntityType>
+  <EntityType Name="pessoa_juridica" BaseType="hbatecnologia60Model.pessoa">
+    <Property Name="id_segmento" Type="Int64" Nullable="false" />
+    <Property Name="cnpj" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="insc_estadual" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="insc_municipal" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="codigo_produtor_rural" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="doc_empresa_estrangeira" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="nome_fantasia" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="site" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="data_abertura" Type="DateTime" />
+    <NavigationProperty Name="pessoa_fisica" Relationship="hbatecnologia60Model.fk_idx_pessoa_juridica" FromRole="pessoa_juridica" ToRole="pessoa_fisica" />
+    <NavigationProperty Name="segmento" Relationship="hbatecnologia60Model.fk_id_segmento" FromRole="pessoa_juridica" ToRole="segmento" />
+  </EntityType>
+  <EntityType Name="segmento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="pessoa_juridica" Relationship="hbatecnologia60Model.fk_id_segmento" FromRole="segmento" ToRole="pessoa_juridica" />
+  </EntityType>
+  <Association Name="fk_idx_pessoa_juridica">
+    <End Role="pessoa_juridica" Type="hbatecnologia60Model.pessoa_juridica" Multiplicity="0..1" />
+    <End Role="pessoa_fisica" Type="hbatecnologia60Model.pessoa_fisica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pessoa_juridica">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pessoa_fisica">
+        <PropertyRef Name="id_pessoa_juridica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_id_segmento">
+    <End Role="segmento" Type="hbatecnologia60Model.segmento" Multiplicity="1" />
+    <End Role="pessoa_juridica" Type="hbatecnologia60Model.pessoa_juridica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="segmento">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pessoa_juridica">
+        <PropertyRef Name="id_segmento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

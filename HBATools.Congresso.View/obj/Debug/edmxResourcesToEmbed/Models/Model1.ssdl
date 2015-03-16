@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="hbatecnologia60Model.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="hbatecnologia60ModelStoreContainer">
+    <EntitySet Name="pessoa" EntityType="hbatecnologia60Model.Store.pessoa" store:Type="Tables" Schema="hbatecnologia60" />
+    <EntitySet Name="pessoa_fisica" EntityType="hbatecnologia60Model.Store.pessoa_fisica" store:Type="Tables" Schema="hbatecnologia60" />
+    <EntitySet Name="pessoa_juridica" EntityType="hbatecnologia60Model.Store.pessoa_juridica" store:Type="Tables" Schema="hbatecnologia60" />
+    <EntitySet Name="segmento" EntityType="hbatecnologia60Model.Store.segmento" store:Type="Tables" Schema="hbatecnologia60" />
+    <AssociationSet Name="fk_id_segmento" Association="hbatecnologia60Model.Store.fk_id_segmento">
+      <End Role="segmento" EntitySet="segmento" />
+      <End Role="pessoa_juridica" EntitySet="pessoa_juridica" />
+    </AssociationSet>
+    <AssociationSet Name="fk_idx_pessoa_juridica" Association="hbatecnologia60Model.Store.fk_idx_pessoa_juridica">
+      <End Role="pessoa_juridica" EntitySet="pessoa_juridica" />
+      <End Role="pessoa_fisica" EntitySet="pessoa_fisica" />
+    </AssociationSet>
+    <AssociationSet Name="id_pessoa" Association="hbatecnologia60Model.Store.id_pessoa">
+      <End Role="pessoa" EntitySet="pessoa" />
+      <End Role="pessoa_fisica" EntitySet="pessoa_fisica" />
+    </AssociationSet>
+    <AssociationSet Name="id_pessoax" Association="hbatecnologia60Model.Store.id_pessoax">
+      <End Role="pessoa" EntitySet="pessoa" />
+      <End Role="pessoa_juridica" EntitySet="pessoa_juridica" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="pessoa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="end_rua" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="end_numero" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="end_complemento" Type="varchar" MaxLength="50" />
+    <Property Name="end_bairro" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="end_cidade" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="end_estado" Type="char" MaxLength="2" />
+    <Property Name="end_cep" Type="char" MaxLength="9" />
+    <Property Name="id_pais" Type="uint" Nullable="false" />
+    <Property Name="end_zipcode" Type="varchar" MaxLength="50" />
+    <Property Name="telefone" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="facebook" Type="varchar" MaxLength="150" />
+    <Property Name="twitter" Type="varchar" MaxLength="100" />
+    <Property Name="nome_cracha" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="observacao" Type="varchar" MaxLength="150" />
+    <Property Name="datahora_cadastro" Type="datetime" />
+    <Property Name="datahora_alteracao" Type="datetime" />
+  </EntityType>
+  <EntityType Name="pessoa_fisica">
+    <Key>
+      <PropertyRef Name="id_pessoa" />
+    </Key>
+    <Property Name="id_pessoa" Type="uint" Nullable="false" />
+    <Property Name="id_pessoa_juridica" Type="uint" />
+    <Property Name="cpf" Type="char" MaxLength="14" />
+    <Property Name="passaporte" Type="varchar" MaxLength="50" />
+    <Property Name="registro_conselho" Type="varchar" MaxLength="50" />
+    <Property Name="rg" Type="varchar" MaxLength="20" />
+    <Property Name="tratamento" Type="varchar" MaxLength="50" />
+    <Property Name="nome_completo" Type="varchar" Nullable="false" MaxLength="300" />
+    <Property Name="email" Type="varchar" Nullable="false" MaxLength="150" />
+    <Property Name="data_nascimento" Type="date" Nullable="false" />
+    <Property Name="foto" Type="varchar" MaxLength="20" />
+    <Property Name="biometria" Type="longtext" />
+    <Property Name="sexo" Type="enum" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pessoa_juridica">
+    <Key>
+      <PropertyRef Name="id_pessoa" />
+    </Key>
+    <Property Name="id_pessoa" Type="uint" Nullable="false" />
+    <Property Name="id_segmento" Type="uint" Nullable="false" />
+    <Property Name="cnpj" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="insc_estadual" Type="varchar" MaxLength="45" />
+    <Property Name="insc_municipal" Type="varchar" MaxLength="45" />
+    <Property Name="codigo_produtor_rural" Type="varchar" MaxLength="45" />
+    <Property Name="doc_empresa_estrangeira" Type="varchar" MaxLength="45" />
+    <Property Name="nome_fantasia" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="site" Type="varchar" MaxLength="200" />
+    <Property Name="data_abertura" Type="date" />
+  </EntityType>
+  <EntityType Name="segmento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="varchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <Association Name="fk_id_segmento">
+    <End Role="segmento" Type="hbatecnologia60Model.Store.segmento" Multiplicity="1" />
+    <End Role="pessoa_juridica" Type="hbatecnologia60Model.Store.pessoa_juridica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="segmento">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pessoa_juridica">
+        <PropertyRef Name="id_segmento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_idx_pessoa_juridica">
+    <End Role="pessoa_juridica" Type="hbatecnologia60Model.Store.pessoa_juridica" Multiplicity="0..1" />
+    <End Role="pessoa_fisica" Type="hbatecnologia60Model.Store.pessoa_fisica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pessoa_juridica">
+        <PropertyRef Name="id_pessoa" />
+      </Principal>
+      <Dependent Role="pessoa_fisica">
+        <PropertyRef Name="id_pessoa_juridica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="id_pessoa">
+    <End Role="pessoa" Type="hbatecnologia60Model.Store.pessoa" Multiplicity="1" />
+    <End Role="pessoa_fisica" Type="hbatecnologia60Model.Store.pessoa_fisica" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="pessoa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pessoa_fisica">
+        <PropertyRef Name="id_pessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="id_pessoax">
+    <End Role="pessoa" Type="hbatecnologia60Model.Store.pessoa" Multiplicity="1" />
+    <End Role="pessoa_juridica" Type="hbatecnologia60Model.Store.pessoa_juridica" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="pessoa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pessoa_juridica">
+        <PropertyRef Name="id_pessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
